@@ -1,0 +1,47 @@
+<p>nkncvbnxn</p>
+<div class="cradit">
+    <form action="" [formGroup]="creditForm">
+        <div class="d-flex">
+            <h2>Customer Details</h2>
+            <a (click)="addCustomerDetails()" class="addContact">
+                <img src="./assets/images/add-icon.svg" />
+            </a>
+        </div>
+        <ng-container formArrayName="customerDetails">
+            <div class="row" *ngFor="let item of customerDetailsArray().controls; let customerIndex = index" [formGroupName]="customerIndex">
+                <p>{{customerIndex + 1}}</p>
+                <div class="col-lg-5">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Customer field</mat-label>
+                        <input matInput placeholder="Customer field" name="customerField" formControlName="customerField">
+                        <mat-icon matSuffix>
+                            <img src="./assets/images/chassies-icon.svg" />
+                        </mat-icon>
+                        <!-- <mat-error *ngIf="measurementUnitFrom?.get('unit')?.errors?.required">
+                                Unit is
+                                <strong>required</strong>
+                            </mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-5">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Customer Value</mat-label>
+                        <input matInput placeholder="Email Id" name="customerValue" formControlName="customerValue">
+                        <mat-icon matSuffix>
+                            <img src="./assets/images/chassies-icon.svg" />
+                        </mat-icon>
+                        <!-- <mat-error *ngIf="measurementUnitFrom?.get('unit')?.errors?.required">
+                                Unit is
+                                <strong>required</strong>
+                            </mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-2">
+                    <a (click)="removeCustomerDetails(customerIndex)" class="remove">
+                        <img src="./assets/images/delete-white.svg" />
+                    </a>
+                </div>
+            </div>
+        </ng-container>
+    </form>
+</div>

@@ -1,0 +1,48 @@
+<loader *ngIf="loader"></loader>
+<div class="header d-flex justify-content-between align-items-center">
+  <h3>Client List</h3>
+</div>
+<mat-form-field appearance="outline">
+  <mat-label>Search by company name</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search by company name" #input>
+</mat-form-field>
+<div class="noDataTable" *ngIf="noData">
+  <h2>No data found</h2>
+</div>
+<div class="deletePouup" style="position: fixed; width: 20%; left: 0px; right: 0px; margin:0 auto; top:50%;"
+  *ngIf="popUp">
+  <h3>Are you sure</h3>
+  <a mat-flat-button color="primary" (click)="Yes()">Yes</a>
+  <a mat-flat-button color="warn" (click)="no()">No</a>
+</div>
+
+<div class="custom-table">
+  <mat-table mat-table matSort [dataSource]="clientList" multiTemplateDataRows>
+    <ng-container [matColumnDef]="item.key" *ngFor="let item of tableHeader">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> {{item.label}} </mat-header-cell>
+      <ng-container *ngIf="item.key !== 'action'; else noSkills">
+        <mat-cell *matCellDef="let element">
+          <span [innerHTML]="getSellData(element, item.key) | safeHtml"></span>
+        </mat-cell>
+      </ng-container>
+      <ng-template #noSkills>
+        <mat-cell *matCellDef="let element">
+          <button mat-button mat-icon-button matTooltip="Edit" (click)="edit(element.id)"><img
+              src="assets/images/edit.svg" /></button>
+          <button mat-button mat-icon-button (click)="delete(element.id)" matTooltip="Delete"><img
+              src="assets/images/delete.svg" /></button>
+          <button mat-button mat-icon-button (click)="clienrView(element.id)" matTooltip="View"><img
+              src="assets/images/view.svg" /></button>
+        </mat-cell>
+      </ng-template>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[3, 5, 10]" showFirstLastButtons aria-label="Select page of users"
+    (page)="onChangePage($event)"></mat-paginator>
+
+</div>
+<a (click)="addClientList()" class="add-list">
+  <img src="assets/images/feather-plus.svg" />
+</a>

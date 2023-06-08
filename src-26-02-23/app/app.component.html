@@ -1,0 +1,12 @@
+<div *ngIf="connectionShow" class="connectionShow">
+  <div *ngIf="noInternetConnection" style="text-align: center; background-color: red;">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="signal_cellular_connected_no_internet_4_bar"></mat-icon>
+    <p>THERE IS NO INTERNET CONNECTION</p>
+  </div>
+  <div *ngIf="!noInternetConnection" style="text-align: center; background-color: green;">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="signal_cellular_4_bar"></mat-icon>
+    <p>INTERNET CONNECTION IS THERE</p>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,39 @@
+<!-- <p>client-trip-list works!</p> -->
+<div class="list">
+    <form action="" [formGroup]="clientTrip">
+        <div class="custom-form-right">
+            <div class="row">
+                <div class="col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Receiver Name</mat-label>
+                        <mat-select name="receivername" formControlName="receivername">
+                            <mat-option *ngFor="let receiver of receiver" [value]="receiver.value">
+                                {{receiver.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Client</mat-label>
+                        <mat-select name="client" formControlName="client">
+                            <mat-option *ngFor="let client of clients" [value]="client.value">
+                                {{client.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Driver Name</mat-label>
+                        <mat-select name="driver" formControlName="driver">
+                            <mat-option *ngFor="let driver of drivers" [value]="driver.value">
+                                {{driver.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

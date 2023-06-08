@@ -1,0 +1,237 @@
+<loader *ngIf="loader"></loader>
+<div class="list clientForm">
+
+  <form action="" [formGroup]="wareHouse">
+    <div class="custom-form-right">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4>Update Wearhouse</h4>
+        </div>
+        <div class="col-lg-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Wear house name</mat-label>
+            <input matInput placeholder="Company name" name="name" formControlName="name">
+            <mat-icon matSuffix>
+              <img src="./assets/images/company-icon.svg" />
+            </mat-icon>
+            <mat-error *ngIf="wareHouse?.get('name')?.hasError('required')">
+                Wear house name is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="address">
+      <div class="d-flex justify-content-between">
+        <h2>Wear House Address</h2>
+        <a (click)="addressAdd()" class="addContact">
+          <img src="./assets/images/add-icon.svg" />
+        </a>
+      </div>
+      <div class="custom-form-right">
+        <div formArrayName="address">
+          <ng-container *ngFor="let addressItem of getAddressArray().controls; let i = index" [formGroupName]="i">
+
+            <div class="row justify-content-end">
+              <div class="col-lg-12 d-flex align-items-center justify-content-between">
+                <h4>Address Information</h4>
+                <a (click)="deleteAddress(i)" class="remove" *ngIf="i>0">
+                  <img src="./assets/images/delete-white.svg" />
+                </a>
+              </div>
+              <div class="col-lg-1 counter">
+                <p>0{{i+1}}</p>
+              </div>
+              <div class="col-lg-3">
+                <mat-form-field appearance="outline">
+                  <mat-label>Street No</mat-label>
+                  <input matInput placeholder="Street No" name="streetNumber" formControlName="streetNumber">
+                  <mat-icon matSuffix>
+                    <img src="./assets/images/street-icon.svg" />
+                  </mat-icon>
+                  <mat-error *ngIf="addressItem?.get('streetNumber')?.hasError('required')">Street No
+                    <strong>Required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Street Name</mat-label>
+                  <input matInput placeholder="Street Name" name="streetName" formControlName="streetName">
+                  <mat-icon matSuffix>
+                    <img src="./assets/images/street-icon.svg" />
+                  </mat-icon>
+                  <mat-error *ngIf="addressItem?.get('streetName')?.hasError('required')">Street Name
+                    <strong>Required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Land Mark</mat-label>
+                  <input matInput placeholder="LandMark" name="landMark" formControlName="landMark">
+                  <mat-icon matSuffix>
+                    <img src="./assets/images/landMark-icon.svg" />
+                  </mat-icon>
+                  <mat-error *ngIf="addressItem?.get('landMark')?.hasError('required')">Land Mark
+                    <strong>Required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-3">
+                <mat-form-field appearance="outline">
+                  <mat-label>city</mat-label>
+                  <input matInput placeholder="city" name="city" formControlName="city">
+                  <mat-icon matSuffix>
+                    <img src="./assets/images/city-icon.svg" />
+                  </mat-icon>
+                  <mat-error *ngIf="addressItem?.get('city')?.hasError('required')">city
+                    <strong>Required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>State</mat-label>
+                  <input matInput placeholder="state" name="state" formControlName="state">
+                  <mat-icon matSuffix>
+                    <img src="./assets/images/state-icon.svg" />
+                  </mat-icon>
+                  <mat-error *ngIf="addressItem?.get('state')?.hasError('required')">State
+                    <strong>Required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Zip Code</mat-label>
+                  <input matInput placeholder="zip Code" name="zipCode" formControlName="zipCode">
+                  <mat-icon matSuffix>
+                    <img src="./assets/images/zip-code-icon.svg" />
+                  </mat-icon>
+                  <mat-error *ngIf="addressItem?.get('zipCode')?.hasError('required')">Zip Code
+                    <strong>Required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-11">
+                <mat-form-field appearance="outline">
+                  <mat-label>Sub account</mat-label>
+                  <mat-select formControlName="subAccount" name="subAccount" multiple>
+                    <mat-option *ngFor="let subAccount of subAccountData" [value]="subAccount.value">{{subAccount.name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="addressItem?.get('subAccount')?.hasError('required')">Sub Account
+                    <strong>Required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="contact extraMargin">
+      <div class="d-flex justify-content-between">
+        <h3 class="title">Contact Information</h3>
+        <a (click)="addContact()" class="addContact">
+          <img src="./assets/images/add-icon.svg" />
+        </a>
+      </div>
+      <ng-container formArrayName="contact">
+        <div class="custom-form-right" *ngFor="let item of getContactArray().controls; let contactIndex = index" [formGroupName]="contactIndex">
+          <!-- <div class="custom-form-right"> -->
+          <div class="row align-items-start justify-content-between">
+            <div class="col-lg-1 counter">
+              <p>{{contactIndex + 1 }}</p>
+            </div>
+            <div class="col-xl-5 col-lg-5">
+              <mat-form-field appearance="outline">
+                <mat-label>Contact Person Name</mat-label>
+                <input matInput placeholder="Contact Person Name" name="contactPersonName" formControlName="contactPersonName">
+                <mat-icon matSuffix>
+                  <img src="./assets/images/user-icon.svg" />
+                </mat-icon>
+                <mat-error *ngIf="item?.get('contactPersonName')?.hasError('required')">Contact Person Name
+                  <strong>Required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-xl-5 col-lg-5">
+              <mat-form-field appearance="outline">
+                <mat-label>Email Id</mat-label>
+                <input matInput placeholder="Email Id" name="emailId" formControlName="emailId">
+                <mat-icon matSuffix>
+                  <img src="./assets/images/email-icon.svg" />
+                </mat-icon>
+                <mat-error *ngIf="item?.get('emailId')?.hasError('required')">Email Id
+                  <strong>Required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-1 text-right" style="text-align: right;">
+              <a (click)="removeContact(contactIndex)" class="remove" *ngIf="contactIndex>0">
+                <img src="./assets/images/delete-white.svg" />
+              </a>
+            </div>
+
+            <ng-container formArrayName="contactNumberList">
+              <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                <h4>Multiple Phone Number</h4>
+                <a (click)="contactNumberAdd(contactIndex)" class="addContact">
+                  <img src="./assets/images/add-icon.svg" />
+                </a>
+              </div>
+              <div class="row align-items-center" *ngFor="let contactList of getContactNumberArray(contactIndex, item).controls; let ContactNumberIndex = index"
+                [formGroupName]="ContactNumberIndex">
+                <!-- <div class="row" > -->
+
+                <div class="col-lg-3">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Contact Number</mat-label>
+                    <input matInput placeholder="Contact Number" name="contactNo" formControlName="contactNo">
+                    <mat-icon matSuffix>
+                      <img src="./assets/images/contact-icon.svg" />
+                    </mat-icon>
+                    <mat-error *ngIf="contactList?.get('contactNo')?.hasError('required')">Email Id
+                      <strong>Required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <div class="whatapp d-flex flex-row align-items-center justify-content-between mr-5">
+                    <mat-label class="d-flex align-items-center">
+                      <img src="./assets/images/whatsapp-icon.svg" class="mr-3" /> Whatsapp
+                    </mat-label>
+                    <mat-slide-toggle formControlName="whatappStatus" class="me-3"></mat-slide-toggle>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="whatapp d-flex flex-row align-items-center justify-content-between mr-5">
+                    <mat-label class="d-flex align-items-center">
+                      <img src="./assets/images/whatsapp-icon.svg" class="mr-3" /> Primary number
+                    </mat-label>
+                    <mat-slide-toggle formControlName="primaryNumber" class="me-3"></mat-slide-toggle>
+                  </div>
+                </div>
+                <div class="col-lg-1 text-right">
+                  <a (click)="deletePhoneNumber(contactIndex, ContactNumberIndex)" class="remove">
+                    <img src="./assets/images/delete-white.svg" />
+                  </a>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="fixedBar">
+      <button *ngIf="!editWearHouseId" mat-button [disabled]="wareHouse.invalid" class="save" (click)="wareHouseSubmit()">Go to Recever
+        <img src="./assets/images/right-arrow-icon.svg" />
+      </button>
+      <button *ngIf="editWearHouseId" mat-button [disabled]="wareHouse.invalid" class="save" (click)="wareHouseEditSubmit()">Go to Recever Edit
+        <img src="./assets/images/right-arrow-icon.svg" />
+      </button>
+    </div>
+  </form>
+</div>
